@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D53486CB1E551AC500D1EE94 /* GradebookURLLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */; };
+		D53486CC1E551AC500D1EE94 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */; };
 		D5379DC01E53A69A0000C07D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5379DBF1E53A69A0000C07D /* AppDelegate.swift */; };
 		D5379DC51E53A69A0000C07D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5379DC31E53A69A0000C07D /* Main.storyboard */; };
 		D5379DC71E53A69A0000C07D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5379DC61E53A69A0000C07D /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradebookURLLoader.swift; sourceTree = "<group>"; };
+		D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		D5379DBC1E53A69A0000C07D /* Gradebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gradebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5379DBF1E53A69A0000C07D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5379DC41E53A69A0000C07D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 				D5379DD71E53AD990000C07D /* LoginViewController.swift */,
 				D5379DD51E53A7E80000C07D /* SectionsCollectionViewController.swift */,
 				D5379DC31E53A69A0000C07D /* Main.storyboard */,
+				D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */,
+				D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */,
 				D5379DC61E53A69A0000C07D /* Assets.xcassets */,
 				D5379DC81E53A69A0000C07D /* LaunchScreen.storyboard */,
 				D5379DCB1E53A69A0000C07D /* Info.plist */,
@@ -143,6 +149,8 @@
 				D5379DD81E53AD990000C07D /* LoginViewController.swift in Sources */,
 				D5379DD61E53A7E80000C07D /* SectionsCollectionViewController.swift in Sources */,
 				D5379DC01E53A69A0000C07D /* AppDelegate.swift in Sources */,
+				D53486CC1E551AC500D1EE94 /* SwiftyJSON.swift in Sources */,
+				D53486CB1E551AC500D1EE94 /* GradebookURLLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +312,7 @@
 				D5379DD01E53A69A0000C07D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
