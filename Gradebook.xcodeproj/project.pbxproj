@@ -61,11 +61,11 @@
 			isa = PBXGroup;
 			children = (
 				D5379DBF1E53A69A0000C07D /* AppDelegate.swift */,
+				D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */,
 				D5379DD71E53AD990000C07D /* LoginViewController.swift */,
 				D5379DD51E53A7E80000C07D /* SectionsCollectionViewController.swift */,
-				D5379DC31E53A69A0000C07D /* Main.storyboard */,
-				D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */,
 				D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */,
+				D5379DC31E53A69A0000C07D /* Main.storyboard */,
 				D5379DC61E53A69A0000C07D /* Assets.xcassets */,
 				D5379DC81E53A69A0000C07D /* LaunchScreen.storyboard */,
 				D5379DCB1E53A69A0000C07D /* Info.plist */,
@@ -105,7 +105,6 @@
 				TargetAttributes = {
 					D5379DBB1E53A69A0000C07D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = CM86EZ9GM9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -271,7 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CM86EZ9GM9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Gradebook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.Gradebook;
@@ -284,7 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CM86EZ9GM9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Gradebook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = amcinnis.Gradebook;
