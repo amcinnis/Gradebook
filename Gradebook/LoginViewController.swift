@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func testLogin(_ sender: Any) {
+        var hey = "hey"
         urlTextField.text = "https://users.csc.calpoly.edu/~bellardo/cgi-bin/test/grades.json"
         loginTextField.text = "test"
         passwordTextField.text = "fSxgQfMdm6"
