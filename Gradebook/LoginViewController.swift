@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func testLogin(_ sender: Any) {
-        var hey = "hey"
         urlTextField.text = "https://users.csc.calpoly.edu/~bellardo/cgi-bin/test/grades.json"
         loginTextField.text = "test"
         passwordTextField.text = "fSxgQfMdm6"
@@ -47,6 +46,7 @@ class LoginViewController: UIViewController {
                 let json = JSON(data)
                 this.sections = json["sections"]
                 print(json)
+                this.performSegue(withIdentifier: "ShowSections", sender: nil)
             }
         }
     }
@@ -54,9 +54,10 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowSections" {
             if let navVC = segue.destination as? UINavigationController {
-                if let dest = navVC.topViewController as? SectionsCollectionViewController {
+                if let dest = navVC.topViewController as? SectionsTableViewController {
                     if let sections = sections {
                         dest.sections = sections
+                        dest.loader = loader
                     }
                 }
             }

@@ -1,18 +1,19 @@
 //
-//  SectionsCollectionViewController.swift
+//  EnrollmentsViewController.swift
 //  Gradebook
 //
-//  Created by Austin McInnis on 2/14/17.
+//  Created by Austin McInnis on 2/15/17.
 //  Copyright © 2017 Austin McInnis. All rights reserved.
 //
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "EnrollmentCell"
 
-class SectionsCollectionViewController: UICollectionViewController {
+class EnrollmentsViewController: UICollectionViewController {
     
-    var sections : JSON?
+    var enrollments : JSON?
+    var loader : GradebookURLLoader?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,6 @@ class SectionsCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        if let sections = sections {
-            print(sections)
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,12 +46,15 @@ class SectionsCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
+        if let count = enrollments?.count {
+            return count
+        }
         return 0
     }
 
@@ -61,6 +62,15 @@ class SectionsCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         // Configure the cell
+        if let enrollment = enrollments?[indexPath.row] {
+            if let imageView = cell.viewWithTag(1) as? UIImageView {
+                loader?.load(path: <#T##String#>, compCb: <#T##(Data, Int, Error?) -> Void#>)
+            }
+            
+            if let nameLabel = cell.viewWithTag(2) as? UILabel {
+                
+            }
+        }
     
         return cell
     }
