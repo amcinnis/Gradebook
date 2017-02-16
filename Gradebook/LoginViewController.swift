@@ -14,6 +14,9 @@ class LoginViewController: UIViewController {
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
+    private var loader : GradebookURLLoader?
+    private var sections : JSON?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +27,39 @@ class LoginViewController: UIViewController {
         urlTextField.text = "https://users.csc.calpoly.edu/~bellardo/cgi-bin/test/grades.json"
         loginTextField.text = "test"
         passwordTextField.text = "fSxgQfMdm6"
+    }
+    
+    @IBAction func liveLogin(_ sender: Any) {
+        urlTextField.text = "https://users.csc.calpoly.edu/~bellardo/cgi-bin/grades.json"
+        loginTextField.text = "amcinnis"
+    }
+    
+    @IBAction func login(_ sender: Any) {
+        loader = GradebookURLLoader()
+        loader?.baseUrlStr = urlTextField.text!
+        loader?.login(username: loginTextField.text!, password: passwordTextField.text!) {
+            [weak self] (result: Bool) in
+            guard let this = self else { return }
+            guard result == true else { return }
+            print("Auth worked!")
+            this.loader?.load(path: "?record=sections") { (data, status, error) in
+                let json = JSON(data)
+                this.sections = json["sections"]
+                print(json)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowSections" {
+            if let navVC = segue.destination as? UINavigationController {
+                if let dest = navVC.topViewController as? SectionsCollectionViewController {
+                    if let sections = sections {
+                        dest.sections = sections
+                    }
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

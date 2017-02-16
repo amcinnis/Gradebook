@@ -11,6 +11,8 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class SectionsCollectionViewController: UICollectionViewController {
+    
+    var sections : JSON?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,9 @@ class SectionsCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        if let sections = sections {
+            print(sections)
+        }
     }
 
     override func didReceiveMemoryWarning() {
