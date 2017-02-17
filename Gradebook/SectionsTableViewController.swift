@@ -10,8 +10,9 @@ import UIKit
 
 class SectionsTableViewController: UITableViewController {
 
-    var sections : JSON?
-    var loader : GradebookURLLoader?
+    var sections: [Section]?
+    var enrollments: [Enrollment]?
+    var loader: GradebookURLLoader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +51,11 @@ class SectionsTableViewController: UITableViewController {
 
         // Configure the cell...
         if let section = sections?[indexPath.row] {
-            let deptName = section["dept"].stringValue
-            let courseName = section["course"].stringValue
+            let deptName = section.dept
+            let courseName = section.course
             
             cell.textLabel?.text = "\(deptName) \(courseName)"
-            cell.detailTextLabel?.text = section["title"].stringValue
+            cell.detailTextLabel?.text = section.title
         }
         
         return cell
@@ -63,15 +64,24 @@ class SectionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = sections?[indexPath.row]
         if let section = section {
-            let term = section["term"].stringValue
-            let course = section["course"].stringValue
-            loader?.load(path:"?record=enrollments&term=\(term)&course=\(course)") { (data, status, error) in
-                let enrollments = JSON(data)
-                print(enrollments)
+            let term = section.term
+            let course = section.course
+            loader?.load(path:"?record=enrollments&term=\(term)&course=\(course)") {
+                [weak self] (data, status, error) in
+                guard let this = self else { return }
+                let json = JSON(data)
+                if let enrollments = json["enrollments"].array {
+                    this.enrollments = [Enrollment]()
+                    for enrollment in enrollments {
+                        let myEnrollment = Enrollment(enrollment: enrollment, loader: this.loader)
+                        this.enrollments?.append(myEnrollment)
+                    }
+                    this.performSegue(withIdentifier: "ShowEnrollments", sender: nil)
+                }
+                else {
+                    print("Enrollments loading error.")
+                }
             }
-        }
-        else {
-            print("Enrollment loading error")
         }
     }
 
@@ -110,14 +120,21 @@ class SectionsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowEnrollments" {
+            if let destVC = segue.destination as? EnrollmentsViewController {
+                if let enrollments = self.enrollments {
+                    destVC.enrollments = enrollments
+                }
+            }
+        }
     }
-    */
+    
 
 }

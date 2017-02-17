@@ -12,7 +12,7 @@ private let reuseIdentifier = "EnrollmentCell"
 
 class EnrollmentsViewController: UICollectionViewController {
     
-    var enrollments : JSON?
+    var enrollments : [Enrollment]?
     var loader : GradebookURLLoader?
 
     override func viewDidLoad() {
@@ -55,6 +55,9 @@ class EnrollmentsViewController: UICollectionViewController {
         if let count = enrollments?.count {
             return count
         }
+        else {
+            print("No enrollments count")
+        }
         return 0
     }
 
@@ -63,18 +66,35 @@ class EnrollmentsViewController: UICollectionViewController {
     
         // Configure the cell
         if let enrollment = enrollments?[indexPath.row] {
-            if let imageView = cell.viewWithTag(1) as? UIImageView {
-                loader?.load(path: <#T##String#>, compCb: <#T##(Data, Int, Error?) -> Void#>)
-            }
+//            if let imageView = cell.viewWithTag(1) as? UIImageView {
+//                let picture = enrollment["picture"]
+//                loader?.load(path: , compCb: <#T##(Data, Int, Error?) -> Void#>)
+//            }
             
-            if let nameLabel = cell.viewWithTag(2) as? UILabel {
-                
-            }
+            let nameLabel = UILabel(frame: CGRect(x: 0.0, y: cell.frame.height, width: cell.frame.size.width, height: cell.frame.size.height / 5.0))
+            let firstName = enrollment.firstName
+            let lastName = enrollment.lastName
+            nameLabel.text = "\(firstName) \(lastName)"
+            nameLabel.adjustsFontSizeToFitWidth = true
+            nameLabel.textAlignment = .center
+            cell.contentView.addSubview(nameLabel)
+            
+            let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: cell.frame.size.width, height: cell.frame.size.height))
+            imageView.image = enrollment.picture
+            cell.addSubview(imageView)
         }
+        
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1
     
         return cell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let enrollment = enrollments[indexPath.row] {
+            
+        }
+    }
     // MARK: UICollectionViewDelegate
 
     /*

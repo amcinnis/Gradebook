@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     
     private var loader : GradebookURLLoader?
-    private var sections : JSON?
+    private var sections : [Section]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +44,14 @@ class LoginViewController: UIViewController {
             print("Auth worked!")
             this.loader?.load(path: "?record=sections") { (data, status, error) in
                 let json = JSON(data)
-                this.sections = json["sections"]
-                print(json)
-                this.performSegue(withIdentifier: "ShowSections", sender: nil)
+                if let sections = json["sections"].array {
+                    this.sections = [Section]()
+                    for section in sections {
+                        let mySection = Section(section: section)
+                        this.sections?.append(mySection)
+                    }
+                    this.performSegue(withIdentifier: "ShowSections", sender: nil)
+                }
             }
         }
     }
