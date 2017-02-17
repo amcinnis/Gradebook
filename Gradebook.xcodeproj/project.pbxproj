@@ -7,26 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D501D7A91E566CA900D68036 /* Enrollment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501D7A81E566CA900D68036 /* Enrollment.swift */; };
+		D501D7AB1E569B4800D68036 /* batman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D501D7AA1E569B4800D68036 /* batman.jpg */; };
+		D501D7AD1E56CC1100D68036 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501D7AC1E56CC1100D68036 /* Assignment.swift */; };
 		D53486CB1E551AC500D1EE94 /* GradebookURLLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */; };
 		D53486CC1E551AC500D1EE94 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */; };
+		D53486CE1E55821C00D1EE94 /* SectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486CD1E55821C00D1EE94 /* SectionsTableViewController.swift */; };
+		D53486D01E55891400D1EE94 /* EnrollmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53486CF1E55891400D1EE94 /* EnrollmentsViewController.swift */; };
+		D5358C1A1E5649C6000F5C94 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5358C191E5649C6000F5C94 /* Section.swift */; };
 		D5379DC01E53A69A0000C07D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5379DBF1E53A69A0000C07D /* AppDelegate.swift */; };
 		D5379DC51E53A69A0000C07D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5379DC31E53A69A0000C07D /* Main.storyboard */; };
 		D5379DC71E53A69A0000C07D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5379DC61E53A69A0000C07D /* Assets.xcassets */; };
 		D5379DCA1E53A69A0000C07D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5379DC81E53A69A0000C07D /* LaunchScreen.storyboard */; };
-		D5379DD61E53A7E80000C07D /* SectionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5379DD51E53A7E80000C07D /* SectionsCollectionViewController.swift */; };
 		D5379DD81E53AD990000C07D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5379DD71E53AD990000C07D /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D501D7A81E566CA900D68036 /* Enrollment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enrollment.swift; sourceTree = "<group>"; };
+		D501D7AA1E569B4800D68036 /* batman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman.jpg; sourceTree = "<group>"; };
+		D501D7AC1E56CC1100D68036 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradebookURLLoader.swift; sourceTree = "<group>"; };
 		D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		D53486CD1E55821C00D1EE94 /* SectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsTableViewController.swift; sourceTree = "<group>"; };
+		D53486CF1E55891400D1EE94 /* EnrollmentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnrollmentsViewController.swift; sourceTree = "<group>"; };
+		D5358C191E5649C6000F5C94 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		D5379DBC1E53A69A0000C07D /* Gradebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gradebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5379DBF1E53A69A0000C07D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5379DC41E53A69A0000C07D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5379DC61E53A69A0000C07D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5379DC91E53A69A0000C07D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5379DCB1E53A69A0000C07D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5379DD51E53A7E80000C07D /* SectionsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsCollectionViewController.swift; sourceTree = "<group>"; };
 		D5379DD71E53AD990000C07D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,15 +70,20 @@
 		D5379DBE1E53A69A0000C07D /* Gradebook */ = {
 			isa = PBXGroup;
 			children = (
+				D501D7AC1E56CC1100D68036 /* Assignment.swift */,
 				D5379DBF1E53A69A0000C07D /* AppDelegate.swift */,
+				D501D7A81E566CA900D68036 /* Enrollment.swift */,
+				D53486CF1E55891400D1EE94 /* EnrollmentsViewController.swift */,
 				D53486C91E551AC500D1EE94 /* GradebookURLLoader.swift */,
 				D5379DD71E53AD990000C07D /* LoginViewController.swift */,
-				D5379DD51E53A7E80000C07D /* SectionsCollectionViewController.swift */,
+				D5358C191E5649C6000F5C94 /* Section.swift */,
+				D53486CD1E55821C00D1EE94 /* SectionsTableViewController.swift */,
 				D53486CA1E551AC500D1EE94 /* SwiftyJSON.swift */,
 				D5379DC31E53A69A0000C07D /* Main.storyboard */,
 				D5379DC61E53A69A0000C07D /* Assets.xcassets */,
 				D5379DC81E53A69A0000C07D /* LaunchScreen.storyboard */,
 				D5379DCB1E53A69A0000C07D /* Info.plist */,
+				D501D7AA1E569B4800D68036 /* batman.jpg */,
 			);
 			path = Gradebook;
 			sourceTree = "<group>";
@@ -132,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D501D7AB1E569B4800D68036 /* batman.jpg in Resources */,
 				D5379DCA1E53A69A0000C07D /* LaunchScreen.storyboard in Resources */,
 				D5379DC71E53A69A0000C07D /* Assets.xcassets in Resources */,
 				D5379DC51E53A69A0000C07D /* Main.storyboard in Resources */,
@@ -145,10 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D501D7AD1E56CC1100D68036 /* Assignment.swift in Sources */,
 				D5379DD81E53AD990000C07D /* LoginViewController.swift in Sources */,
-				D5379DD61E53A7E80000C07D /* SectionsCollectionViewController.swift in Sources */,
 				D5379DC01E53A69A0000C07D /* AppDelegate.swift in Sources */,
+				D53486D01E55891400D1EE94 /* EnrollmentsViewController.swift in Sources */,
+				D501D7A91E566CA900D68036 /* Enrollment.swift in Sources */,
+				D5358C1A1E5649C6000F5C94 /* Section.swift in Sources */,
 				D53486CC1E551AC500D1EE94 /* SwiftyJSON.swift in Sources */,
+				D53486CE1E55821C00D1EE94 /* SectionsTableViewController.swift in Sources */,
 				D53486CB1E551AC500D1EE94 /* GradebookURLLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
