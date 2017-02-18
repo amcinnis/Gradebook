@@ -10,10 +10,9 @@ import UIKit
 
 class SectionsTableViewController: UITableViewController {
 
-    private var sections: [Section]?
     var loader: GradebookURLLoader?
-    private var term: String?
-    private var course: String?
+    private var sections: [Section]?
+    private var section: Section?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +34,7 @@ class SectionsTableViewController: UITableViewController {
                 }
             }
             this.tableView.reloadData()
+            print("Finished in Sections closure")
         }
     }
 
@@ -76,10 +76,8 @@ class SectionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let section = sections?[indexPath.row]
-        if let section = section {
-            term = section.term
-            course = section.course
+        if let sections = sections {
+            section = sections[indexPath.row]
             performSegue(withIdentifier: "ShowEnrollments", sender: nil)
         }
     }
@@ -128,8 +126,7 @@ class SectionsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowEnrollments" {
             if let destVC = segue.destination as? EnrollmentsViewController {
-                destVC.term = term
-                destVC.course = course
+                destVC.section = section
                 destVC.loader = loader
             }
         }

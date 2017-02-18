@@ -1,20 +1,16 @@
 //
-//  AssignmentsTableViewController.swift
+//  ScoresTableViewController.swift
 //  Gradebook
 //
-//  Created by Local Account 123-28 on 2/17/17.
+//  Created by Austin McInnis on 2/17/17.
 //  Copyright © 2017 Austin McInnis. All rights reserved.
 //
 
 import UIKit
 
-class AssignmentsTableViewController: UITableViewController {
+class ScoresTableViewController: UITableViewController {
 
-    internal var username: String?
-    private var assignments: [Assignment]?
-    internal var loader: GradebookURLLoader?
-    internal var section: Section?
-    private var assignment: Assignment?
+    var assignment: Assignment?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,25 +20,6 @@ class AssignmentsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        if let section = section {
-            if let loader = loader {
-                loader.load(path: "?record=userscores&term=\(section.term)&course=\(section.course)&user=\(username!)") { [weak self] (data, status, error) in
-                    guard let this = self else { return }
-                    let json = JSON(data)
-                    let jsonAssignments = json["userscores"].arrayValue
-                    this.assignments = [Assignment]()
-                    for jsonAssignment in jsonAssignments {
-                        let myAssignment = Assignment(assignment: jsonAssignment)
-                        this.assignments?.append(myAssignment)
-                    }
-                    this.tableView.reloadData()
-                    print("Finished in Assignments closure")
-                }
-            }
-            else {
-                print("No loader in AssignmentsTableViewController")
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,29 +36,22 @@ class AssignmentsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let assignments = assignments {
-            return assignments.count
+        if let assignment = assignment {
+            return assignment.scores.count
         }
         return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
 
         // Configure the cell...
-        if let assignments = assignments {
-            let assignment = assignments[indexPath.row]
-            cell.textLabel?.text = assignment.name
+        if let assignment = assignment {
+            let score = assignment.scores[indexPath.row]
+            cell.textLabel?.text = "Score: \(score.displayScore)"
         }
-        
+
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let assignments = assignments {
-            assignment = assignments[indexPath.row]
-            performSegue(withIdentifier: "ShowScores", sender: nil)
-        }
     }
 
     /*
@@ -119,22 +89,14 @@ class AssignmentsTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowScores" {
-            if let destVC = segue.destination as? ScoresTableViewController {
-                if let assignment = assignment {
-                    destVC.assignment = assignment
-                }
-            }
-        }
-        
     }
- 
+    */
 
 }

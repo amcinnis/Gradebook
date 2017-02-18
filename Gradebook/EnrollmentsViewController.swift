@@ -12,11 +12,10 @@ private let reuseIdentifier = "EnrollmentCell"
 
 class EnrollmentsViewController: UICollectionViewController {
     
+    var loader : GradebookURLLoader?
     private var enrollments: [Enrollment]?
     internal var enrollment: Enrollment?
-    var loader : GradebookURLLoader?
-    internal var term: String?
-    internal var course: String?
+    internal var section: Section?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,27 +27,49 @@ class EnrollmentsViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        if let loader = loader {
-            loader.load(path:"?record=enrollments&term=\(term!)&course=\(course!)") {
-                [weak self] (data, status, error) in
-                guard let this = self else { return }
-                let json = JSON(data)
-                print("Inside loader")
-                if let enrollments = json["enrollments"].array {
-                    this.enrollments = [Enrollment]()
-                    for enrollment in enrollments {
-                        let myEnrollment = Enrollment(enrollment: enrollment, loader: this.loader)
-                        this.enrollments?.append(myEnrollment)
+        if let section = section {
+            self.title = "\(section.dept) \(section.course)"
+            
+            if let loader = loader {
+                loader.load(path:"?record=enrollments&term=\(section.term)&course=\(section.course)") {
+                    [weak self] (data, status, error) in
+                    guard let this = self else { return }
+                    let json = JSON(data)
+                    print("Inside loader")
+                    if let enrollments = json["enrollments"].array {
+                        this.enrollments = [Enrollment]()
+                        for enrollment in enrollments {
+                            let myEnrollment = Enrollment(enrollment: enrollment)
+                            this.enrollments?.append(myEnrollment)
+                        }
                     }
+                    else {
+                        print("Enrollments loading error.")
+                    }
+                    if let enrollments = this.enrollments {
+                        this.loadEnrollmentsPictures(enrollments: enrollments)
+                    }
+                    this.collectionView?.reloadData()
+                    print("Finished in Enrollments closure")
                 }
-                else {
-                    print("Enrollments loading error.")
-                }
-                this.collectionView?.reloadData()
+            }
+            else {
+                print("No loader in EnrollmentsViewController")
             }
         }
-        else {
-            print("No loader in EnrollmentsViewController")
+    }
+    
+    private func loadEnrollmentsPictures(enrollments: [Enrollment]) {
+        if let loader = loader {
+            for enrollment in enrollments {
+                loader.load(path: enrollment.pictureURL) {
+                    (data, status, error) in
+                    if let image = UIImage(data: data) {
+                        enrollment.picture = image
+                    }
+                    print("Finished in Enrollments picture closure")
+                }
+            }
         }
     }
 
@@ -68,9 +89,9 @@ class EnrollmentsViewController: UICollectionViewController {
         if segue.identifier == "ShowAssignments" {
             if let destVC = segue.destination as? AssignmentsTableViewController {
                 if let enrollment = self.enrollment {
+                    destVC.title = "\(enrollment.firstName) \(enrollment.lastName)"
                     destVC.username = enrollment.username
-                    destVC.term = term
-                    destVC.course = course
+                    destVC.section = section
                     destVC.loader = loader
                 }
             }
@@ -89,6 +110,7 @@ class EnrollmentsViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         if let count = enrollments?.count {
+            print("\(count) enrollments loaded.")
             return count
         }
         else {

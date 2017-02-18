@@ -42,6 +42,7 @@ class LoginViewController: UIViewController {
             guard result == true else { return }
             print("Auth worked!")
             this.performSegue(withIdentifier: "ShowSections", sender: nil)
+            print("Finished in login closure")
         }
     }
     
@@ -50,6 +51,7 @@ class LoginViewController: UIViewController {
             if let navVC = segue.destination as? UINavigationController {
                 if let dest = navVC.topViewController as? SectionsTableViewController {
                     dest.loader = loader
+                    dest.title = "Sections"
                 }
             }
         }

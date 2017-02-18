@@ -18,6 +18,7 @@ class Enrollment {
     var cscUsername: String
     var middleName: String
     var adminFailure: String
+    var pictureURL: String
     var picture: UIImage?
     var bbID: String
     var dropped: String
@@ -27,7 +28,7 @@ class Enrollment {
     var role: String
     var username: String
     
-    init(enrollment: JSON, loader: GradebookURLLoader?) {
+    init(enrollment: JSON) {
         self.id = enrollment["id"].stringValue
         self.major = enrollment["major"].stringValue
         self.emplid = enrollment["emplid"].stringValue
@@ -36,6 +37,7 @@ class Enrollment {
         self.cscUsername = enrollment["csc_username"].stringValue
         self.middleName = enrollment["middle_name"].stringValue
         self.adminFailure = enrollment["admin_failure"].stringValue
+        self.pictureURL = enrollment["picture"]["url"].stringValue
         self.bbID = enrollment["bb_id"].stringValue
         self.dropped = enrollment["dropped"].stringValue
         self.firstName = enrollment["first_name"].stringValue
@@ -45,16 +47,6 @@ class Enrollment {
         self.username = enrollment["username"].stringValue
         if let batman = UIImage(named: "batman.jpg") {
             self.picture = batman
-        }
-        
-        if let loader = loader {
-            loader.load(path: enrollment["picture"]["url"].stringValue) {
-                [weak self] (data, status, error) in
-                guard let this = self else { return }
-                if let image = UIImage(data: data) {
-                    this.picture = image
-                }
-            }
         }
     }
 }
