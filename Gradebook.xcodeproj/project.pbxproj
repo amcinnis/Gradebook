@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		987036331E57AF1E00733F7D /* AssignmentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987036321E57AF1E00733F7D /* AssignmentsTableViewController.swift */; };
 		D501D7A91E566CA900D68036 /* Enrollment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501D7A81E566CA900D68036 /* Enrollment.swift */; };
 		D501D7AB1E569B4800D68036 /* batman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D501D7AA1E569B4800D68036 /* batman.jpg */; };
 		D501D7AD1E56CC1100D68036 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501D7AC1E56CC1100D68036 /* Assignment.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		987036321E57AF1E00733F7D /* AssignmentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewController.swift; sourceTree = "<group>"; };
 		D501D7A81E566CA900D68036 /* Enrollment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enrollment.swift; sourceTree = "<group>"; };
 		D501D7AA1E569B4800D68036 /* batman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman.jpg; sourceTree = "<group>"; };
 		D501D7AC1E56CC1100D68036 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				D501D7AC1E56CC1100D68036 /* Assignment.swift */,
+				987036321E57AF1E00733F7D /* AssignmentsTableViewController.swift */,
 				D5379DBF1E53A69A0000C07D /* AppDelegate.swift */,
 				D501D7A81E566CA900D68036 /* Enrollment.swift */,
 				D53486CF1E55891400D1EE94 /* EnrollmentsViewController.swift */,
@@ -169,6 +172,7 @@
 				D5358C1A1E5649C6000F5C94 /* Section.swift in Sources */,
 				D53486CC1E551AC500D1EE94 /* SwiftyJSON.swift in Sources */,
 				D53486CE1E55821C00D1EE94 /* SectionsTableViewController.swift in Sources */,
+				987036331E57AF1E00733F7D /* AssignmentsTableViewController.swift in Sources */,
 				D53486CB1E551AC500D1EE94 /* GradebookURLLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

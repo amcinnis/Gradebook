@@ -1,19 +1,20 @@
 //
-//  SectionsTableViewController.swift
+//  AssignmentsTableViewController.swift
 //  Gradebook
 //
-//  Created by Austin McInnis on 2/15/17.
+//  Created by Local Account 123-28 on 2/17/17.
 //  Copyright © 2017 Austin McInnis. All rights reserved.
 //
 
 import UIKit
 
-class SectionsTableViewController: UITableViewController {
+class AssignmentsTableViewController: UITableViewController {
 
-    private var sections: [Section]?
-    var loader: GradebookURLLoader?
-    private var term: String?
-    private var course: String?
+    internal var username: String?
+    private var assignments: [Assignment]?
+    internal var loader: GradebookURLLoader?
+    internal var term: String?
+    internal var course: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +24,21 @@ class SectionsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        self.loader?.load(path: "?record=sections") { [weak self] (data, status, error) in
-            guard let this = self else { return }
-            let json = JSON(data)
-            if let sections = json["sections"].array {
-                this.sections = [Section]()
-                for section in sections {
-                    let mySection = Section(section: section)
-                    this.sections?.append(mySection)
+        if let loader = loader {
+            loader.load(path: "?record=userscores&term=\(term!)&course=\(course!)&user=\(username!)") { [weak self] (data, status, error) in
+                guard let this = self else { return }
+                let json = JSON(data)
+                let jsonAssignments = json["userscores"].arrayValue
+                this.assignments = [Assignment]()
+                for jsonAssignment in jsonAssignments {
+                    let myAssignment = Assignment(assignment: jsonAssignment)
+                    this.assignments?.append(myAssignment)
                 }
+                this.tableView.reloadData()
             }
-            this.tableView.reloadData()
+        }
+        else {
+            print("No loader in AssignmentsTableViewController")
         }
     }
 
@@ -52,36 +56,23 @@ class SectionsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let count = sections?.count {
-            return count
+        if let assignments = assignments {
+            return assignments.count
         }
-        
         return 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SectionCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath)
 
         // Configure the cell...
-        if let section = sections?[indexPath.row] {
-            let deptName = section.dept
-            let courseName = section.course
-            
-            cell.textLabel?.text = "\(deptName) \(courseName)"
-            cell.detailTextLabel?.text = section.title
+        if let assignments = assignments {
+            let assignment = assignments[indexPath.row]
+            cell.textLabel?.text = assignment.name
+            cell.detailTextLabel?.text = "Score: "
         }
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let section = sections?[indexPath.row]
-        if let section = section {
-            term = section.term
-            course = section.course
-            performSegue(withIdentifier: "ShowEnrollments", sender: nil)
-        }
     }
 
     /*
@@ -119,21 +110,14 @@ class SectionsTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowEnrollments" {
-            if let destVC = segue.destination as? EnrollmentsViewController {
-                destVC.term = term
-                destVC.course = course
-                destVC.loader = loader
-            }
-        }
     }
-    
+    */
 
 }

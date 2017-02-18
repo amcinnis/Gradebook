@@ -12,8 +12,11 @@ private let reuseIdentifier = "EnrollmentCell"
 
 class EnrollmentsViewController: UICollectionViewController {
     
-    var enrollments : [Enrollment]?
+    private var enrollments: [Enrollment]?
+    internal var enrollment: Enrollment?
     var loader : GradebookURLLoader?
+    internal var term: String?
+    internal var course: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,28 @@ class EnrollmentsViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        if let loader = loader {
+            loader.load(path:"?record=enrollments&term=\(term!)&course=\(course!)") {
+                [weak self] (data, status, error) in
+                guard let this = self else { return }
+                let json = JSON(data)
+                print("Inside loader")
+                if let enrollments = json["enrollments"].array {
+                    this.enrollments = [Enrollment]()
+                    for enrollment in enrollments {
+                        let myEnrollment = Enrollment(enrollment: enrollment, loader: this.loader)
+                        this.enrollments?.append(myEnrollment)
+                    }
+                }
+                else {
+                    print("Enrollments loading error.")
+                }
+                this.collectionView?.reloadData()
+            }
+        }
+        else {
+            print("No loader in EnrollmentsViewController")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,15 +57,26 @@ class EnrollmentsViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "ShowAssignments" {
+            if let destVC = segue.destination as? AssignmentsTableViewController {
+                if let enrollment = self.enrollment {
+                    destVC.username = enrollment.username
+                    destVC.term = term
+                    destVC.course = course
+                    destVC.loader = loader
+                }
+            }
+        }
     }
-    */
+ 
 
     // MARK: UICollectionViewDataSource
 
@@ -66,10 +102,6 @@ class EnrollmentsViewController: UICollectionViewController {
     
         // Configure the cell
         if let enrollment = enrollments?[indexPath.row] {
-//            if let imageView = cell.viewWithTag(1) as? UIImageView {
-//                let picture = enrollment["picture"]
-//                loader?.load(path: , compCb: <#T##(Data, Int, Error?) -> Void#>)
-//            }
             
             let nameLabel = UILabel(frame: CGRect(x: 0.0, y: cell.frame.height, width: cell.frame.size.width, height: cell.frame.size.height / 5.0))
             let firstName = enrollment.firstName
@@ -91,8 +123,9 @@ class EnrollmentsViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let enrollment = enrollments[indexPath.row] {
-            
+        if let enrollments = enrollments {
+            enrollment = enrollments[indexPath.row]
+            performSegue(withIdentifier: "ShowAssignments", sender: nil)
         }
     }
     // MARK: UICollectionViewDelegate

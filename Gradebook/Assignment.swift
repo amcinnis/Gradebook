@@ -35,11 +35,9 @@ class Assignment {
         self.displayType = assignment["display_type"].stringValue
         self.dueDate = assignment["due_date"].stringValue
         self.userPermissions = Permissions(permissions: assignment["permissions"])
-        if let studentPermissions = assignment["student_permissions"] {
-            self.studentPermissions = Permissions(permissions: studentPermissions)
-        }
+        self.studentPermissions = Permissions(permissions: assignment["student_permissions"])
+        self.scores = [Score]()
         if let scores = assignment["scores"].array {
-            self.scores = [Score]()
             for score in scores {
                 let myScore = Score(score: score)
                 self.scores.append(myScore)
@@ -90,12 +88,14 @@ internal class Score {
         self.score = score["score"].stringValue
         self.displayScore = score["display_score"].stringValue
         self.postDate = score["post_date"].stringValue
-        if let feedback = score["feedback"] {
-            self.feedback = File(file: feedback)
-        }
-        if let studentWork = score["student_work"] {
-            self.studentWork = File(file: studentWork)
-        }
+        self.feedback = File(file: score["feedback"])
+        self.studentWork = File(file: score["student_work"])
+//        if let feedback = score["feedback"] {
+//            self.feedback = File(file: feedback)
+//        }
+//        if let studentWork = score["student_work"] {
+//            self.studentWork = File(file: studentWork)
+//        }
     }
 }
 
