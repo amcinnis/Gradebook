@@ -35,7 +35,6 @@ class EnrollmentsViewController: UICollectionViewController {
                     [weak self] (data, status, error) in
                     guard let this = self else { return }
                     let json = JSON(data)
-                    print("Inside loader")
                     if let enrollments = json["enrollments"].array {
                         this.enrollments = [Enrollment]()
                         for enrollment in enrollments {
@@ -46,29 +45,14 @@ class EnrollmentsViewController: UICollectionViewController {
                     else {
                         print("Enrollments loading error.")
                     }
-                    if let enrollments = this.enrollments {
-                        this.loadEnrollmentsPictures(enrollments: enrollments)
+                    
+                    DispatchQueue.main.async {
+                        this.collectionView?.reloadData()
                     }
-                    this.collectionView?.reloadData()
-                    print("Finished in Enrollments closure")
                 }
             }
             else {
                 print("No loader in EnrollmentsViewController")
-            }
-        }
-    }
-    
-    private func loadEnrollmentsPictures(enrollments: [Enrollment]) {
-        if let loader = loader {
-            for enrollment in enrollments {
-                loader.load(path: enrollment.pictureURL) {
-                    (data, status, error) in
-                    if let image = UIImage(data: data) {
-                        enrollment.picture = image
-                    }
-                    print("Finished in Enrollments picture closure")
-                }
             }
         }
     }
@@ -97,7 +81,6 @@ class EnrollmentsViewController: UICollectionViewController {
             }
         }
     }
- 
 
     // MARK: UICollectionViewDataSource
 
@@ -110,12 +93,9 @@ class EnrollmentsViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         if let count = enrollments?.count {
-            print("\(count) enrollments loaded.")
             return count
         }
-        else {
-            print("No enrollments count")
-        }
+        
         return 0
     }
 
@@ -134,8 +114,19 @@ class EnrollmentsViewController: UICollectionViewController {
             cell.contentView.addSubview(nameLabel)
             
             let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: cell.frame.size.width, height: cell.frame.size.height))
-            imageView.image = enrollment.picture
             cell.addSubview(imageView)
+            
+            if let loader = self.loader {
+                loader.load(path: enrollment.pictureURL) {
+                    (data, status, error) in
+                    if let image = UIImage(data: data) {
+                        enrollment.picture = image
+                    }
+                    DispatchQueue.main.async {
+                        imageView.image = enrollment.picture
+                    }
+                }
+            }
         }
         
         cell.layer.borderColor = UIColor.black.cgColor

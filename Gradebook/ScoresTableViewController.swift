@@ -11,6 +11,8 @@ import UIKit
 class ScoresTableViewController: UITableViewController {
 
     var assignment: Assignment?
+    private var gradedSubmissions = [Score]()
+    private var otherSubmissions: [Score]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,29 @@ class ScoresTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        if let assignment = assignment {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .medium
+            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+            for score in assignment.scores {
+                if score.counts {
+                    gradedSubmissions.append(score)
+                }
+                else {
+                    if otherSubmissions == nil {
+                        otherSubmissions = [Score]()
+                    }
+                    otherSubmissions?.append(score)
+                }
+            }
+            if let otherSubmissions = otherSubmissions {
+                self.otherSubmissions = otherSubmissions.sorted { (score1, score2) in
+                    return score1.postDate.compare(score2.postDate as Date) == .orderedDescending
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,13 +56,31 @@ class ScoresTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        if let assignment = assignment {
+            if assignment.scores.count > 1 {
+                return 2
+            }
+            else {
+                return 1
+            }
+        }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if let assignment = assignment {
-            return assignment.scores.count
+            if assignment.scores.count > 1 {
+                if section == 0 {
+                    return gradedSubmissions.count
+                }
+                else {
+                    return (otherSubmissions?.count)!
+                }
+            }
+            else {
+                return assignment.scores.count
+            }
         }
         return 0
     }
@@ -46,12 +89,31 @@ class ScoresTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
 
         // Configure the cell...
-        if let assignment = assignment {
-            let score = assignment.scores[indexPath.row]
+        if (assignment != nil) {
+            var score: Score
+            if indexPath.section == 0 {
+                score = gradedSubmissions[indexPath.row]
+                cell.accessoryType = .checkmark
+            }
+            else {
+                score = (otherSubmissions?[indexPath.row])!
+            }
             cell.textLabel?.text = "Score: \(score.displayScore)"
+            cell.detailTextLabel?.text = "\(score.postDate.description)"
         }
-
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Graded Submission"
+        case 1:
+            return "Other Submissions"
+        default:
+            return ""
+        }
     }
 
     /*

@@ -35,7 +35,9 @@ class Assignment {
         self.displayType = assignment["display_type"].stringValue
         self.dueDate = assignment["due_date"].stringValue
         self.userPermissions = Permissions(permissions: assignment["permissions"])
-        self.studentPermissions = Permissions(permissions: assignment["student_permissions"])
+        if assignment["student_permissions"].exists() {
+            self.studentPermissions = Permissions(permissions: assignment["student_permissions"])
+        }
         self.scores = [Score]()
         if let scores = assignment["scores"].array {
             for score in scores {
@@ -78,7 +80,7 @@ internal class Score {
     var id: String
     var score: String
     var displayScore: String
-    var postDate: String
+    var postDate: NSDate
     var feedback: File?
     var studentWork: File?
     
@@ -87,15 +89,17 @@ internal class Score {
         self.id = score["id"].stringValue
         self.score = score["score"].stringValue
         self.displayScore = score["display_score"].stringValue
-        self.postDate = score["post_date"].stringValue
+//        self.postDate = score["post_date"].stringValue
+        self.postDate = NSDate(timeIntervalSince1970: score["post_date"].doubleValue)
         self.feedback = File(file: score["feedback"])
         self.studentWork = File(file: score["student_work"])
-//        if let feedback = score["feedback"] {
-//            self.feedback = File(file: feedback)
-//        }
-//        if let studentWork = score["student_work"] {
-//            self.studentWork = File(file: studentWork)
-//        }
+        if score["feedback"].exists() // Optional JSON data
+        {
+            self.feedback = File(file: score["feedback"])
+        }
+        if score["student_work"].exists() {
+            self.studentWork = File(file: score["student_work"])
+        }
     }
 }
 

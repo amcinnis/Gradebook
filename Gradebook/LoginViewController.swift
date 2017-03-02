@@ -40,9 +40,9 @@ class LoginViewController: UIViewController {
             [weak self] (result: Bool) in
             guard let this = self else { return }
             guard result == true else { return }
-            print("Auth worked!")
-            this.performSegue(withIdentifier: "ShowSections", sender: nil)
-            print("Finished in login closure")
+            DispatchQueue.main.async {
+                this.performSegue(withIdentifier: "ShowSections", sender: nil)
+            }
         }
     }
     
@@ -60,6 +60,10 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func unwindToLoginViewController(segue: UIStoryboardSegue) {
+        
     }
     
 

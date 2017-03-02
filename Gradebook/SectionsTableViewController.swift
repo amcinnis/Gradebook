@@ -34,7 +34,6 @@ class SectionsTableViewController: UITableViewController {
                 }
             }
             this.tableView.reloadData()
-            print("Finished in Sections closure")
         }
     }
 
@@ -131,6 +130,7 @@ class SectionsTableViewController: UITableViewController {
             }
         }
     }
+    
     
 
 }

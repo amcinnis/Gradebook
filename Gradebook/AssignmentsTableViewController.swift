@@ -35,8 +35,9 @@ class AssignmentsTableViewController: UITableViewController {
                         let myAssignment = Assignment(assignment: jsonAssignment)
                         this.assignments?.append(myAssignment)
                     }
-                    this.tableView.reloadData()
-                    print("Finished in Assignments closure")
+                    DispatchQueue.main.async {
+                        this.tableView.reloadData()
+                    }
                 }
             }
             else {
